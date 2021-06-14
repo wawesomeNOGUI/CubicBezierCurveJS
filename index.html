@@ -1,0 +1,27 @@
+<html>
+<canvas id="myCanvas"></canvas>
+  <script>
+    const canvas = document.getElementById("myCanvas");
+    ctx = canvas.getContext("2d");
+    var points = {
+      P0: {x: 1, y: 1},
+      P1: {x: 3, y: 4},
+      P2: {x: 10, y: 4},
+      P3: {x: 10, y: 2},
+    }
+
+    console.log(points.P1.x);
+
+    function cubicBezier(t, p){
+      return {
+        x: Math.pow((1-t), 3)*p.P0.x + 3*Math.pow((1-t), 2)*t*p.P1.x + 3*(1-t)*Math.pow(t, 2)*p.P2.x + Math.pow(t, 3)*p.P3.x,
+        y: Math.pow((1-t), 3)*p.P0.y + 3*Math.pow((1-t), 2)*t*p.P1.y + 3*(1-t)*Math.pow(t, 2)*p.P2.y + Math.pow(t, 3)*p.P3.y,
+      }
+    }
+
+    for(var i = 0; i<=1; i += 0.1){
+      var temp = cubicBezier(i, points);
+      ctx.fillRect(temp.x, temp.y , 1, 1);
+    }
+  </script>
+</html>
