@@ -2,7 +2,10 @@
 <canvas id="myCanvas"></canvas>
   <script>
     const canvas = document.getElementById("myCanvas");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
     ctx = canvas.getContext("2d");
+
     var points = {
       P0: {x: 1, y: 1},
       P1: {x: 3, y: 4},
@@ -19,9 +22,20 @@
       }
     }
 
-    for(var i = 0; i<=1; i += 0.1){
-      var temp = cubicBezier(i, points);
-      ctx.fillRect(temp.x, temp.y , 1, 1);
-    }
+    window.addEventListener("click", function(e){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      points.P3.x = e.x;
+      points.P3.y = e.y;
+      points.P2.x = e.x;
+      for(var i = 0; i<=1; i += 0.001){
+        var temp = cubicBezier(i, points);
+        ctx.fillStyle = "rgb(" + e.x/5 + "," + e.y/5 + ", 0)";
+        ctx.fillRect(temp.x, temp.y , 5, 5);
+      }
+    });
+    window.addEventListener("resize", function(e){
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
   </script>
 </html>
