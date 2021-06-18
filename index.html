@@ -1,6 +1,9 @@
 <html>
+<body style="margin: 0; padding: 0;">
 <canvas id="myCanvas"></canvas>
   <script>
+    document.body.scrollTop = 0; // <-- pull the page to the top
+    document.body.style.overflow = 'hidden'; // <-- To hide scrollbar
     const canvas = document.getElementById("myCanvas");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -13,6 +16,8 @@
       P3: {x: 10, y: 2},
     }
 
+    var curveVertices = [];
+
     console.log(points.P1.x);
 
     function cubicBezier(t, p){
@@ -22,6 +27,26 @@
       }
     }
 
+    function loopy(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      //Draw Curve
+      for(var i = 0; i<=1; i += 0.001){
+        var temp = cubicBezier(i, points);
+        ctx.fillStyle = "rgb(255, 0, 255)";
+        ctx.fillRect(temp.x, temp.y , 5, 5);
+      }
+      //Draw Points
+      for (var property in points) {
+        ctx.beginPath();
+        ctx.arc(points[property].x, points[property].y, 5, 2 * Math.PI, false);
+        ctx.fillStyle = "#000000";
+        ctx.fill();
+      }
+      requestAnimationFrame(loopy);
+    }
+    loopy();
+
+/*
     window.addEventListener("click", function(e){
       ctx.clearRect(0,0,canvas.width,canvas.height);
       points.P3.x = e.x;
@@ -33,9 +58,34 @@
         ctx.fillRect(temp.x, temp.y , 5, 5);
       }
     });
+*/
+
+    var pointClicked;
+
+    window.addEventListener("mousedown", function(e){
+      //test if clicked on a point
+      for (var property in points) {
+        if(Math.abs(e.x - points[property].x) < 5 && Math.abs(e.y - points[property].y) < 5){
+          pointClicked = property;
+          break;
+        }else{
+          pointClicked = null;
+        }
+      }
+    });
+    window.addEventListener("mousemove", function(e){
+      if(pointClicked != null){
+        points[pointClicked].x = e.x;
+        points[pointClicked].y = e.y;
+      }
+    });
+    window.addEventListener("mouseup", function(e){
+      pointClicked = null;
+    });
     window.addEventListener("resize", function(e){
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
   </script>
+</body>
 </html>
