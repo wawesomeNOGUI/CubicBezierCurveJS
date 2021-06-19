@@ -15,8 +15,10 @@
       P2: {x: 10, y: 4},
       P3: {x: 10, y: 2},
     }
+    var pCounter = 0;
+    var prevPoint;
 
-    var curveVertices = [];
+    var curveVertices = [];  //Maybe use this later for storing points in the curve
 
     console.log(points.P1.x);
 
@@ -41,6 +43,17 @@
         ctx.arc(points[property].x, points[property].y, 5, 2 * Math.PI, false);
         ctx.fillStyle = "#000000";
         ctx.fill();
+
+        if (pCounter == 1) {
+          ctx.beginPath();
+          ctx.moveTo(points[prevPoint].x, points[prevPoint].y);
+          ctx.lineTo(points[property].x, points[property].y);
+          ctx.stroke();
+        }else{
+          prevPoint = property;
+        }
+        
+        pCounter = pCounter ^ 1;  //xor flip flop between 1 and 0
       }
       requestAnimationFrame(loopy);
     }
