@@ -10,10 +10,10 @@
     ctx = canvas.getContext("2d");
 
     var points = {
-      P0: {x: 1, y: 1},
-      P1: {x: 3, y: 4},
-      P2: {x: 10, y: 4},
-      P3: {x: 10, y: 2},
+      P0: {x: 40, y: 80},
+      P1: {x: 60, y: 160},
+      P2: {x: 100, y: 160},
+      P3: {x: 100, y: 80},
     }
     var pCounter = 0;
     var prevPoint;
@@ -52,7 +52,7 @@
         }else{
           prevPoint = property;
         }
-        
+
         pCounter = pCounter ^ 1;  //xor flip flop between 1 and 0
       }
       requestAnimationFrame(loopy);
