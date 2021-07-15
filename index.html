@@ -76,7 +76,7 @@
     var pointClicked;
 
     window.addEventListener("mousedown", function(e){
-      //test if clicked on a point
+      //Test if clicked on a bezier point
       for (var property in points) {
         if(Math.abs(e.x - points[property].x) < 5 && Math.abs(e.y - points[property].y) < 5){
           pointClicked = property;
@@ -85,6 +85,8 @@
           pointClicked = null;
         }
       }
+      //Test For New Curve Button Click
+      
     });
     window.addEventListener("mousemove", function(e){
       if(pointClicked != null){
