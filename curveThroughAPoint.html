@@ -33,7 +33,7 @@
     //Find P1 (The control Points not hitting the curve) that will give
     //MidPoint at t
     function findP1forMP (t, p){
-    p.P1.x = ( p.MP.x - (Math.pow((1-0.2), 3)*p.P0.x + 3*(1-t)*Math.pow(t, 2)*p.P2.x + Math.pow(t, 3)*p.P3.x) ) / (3*Math.pow((1-t), 2)*t);
+    p.P1.x = ( p.MP.x - (Math.pow((1-t), 3)*p.P0.x + 3*(1-t)*Math.pow(t, 2)*p.P2.x + Math.pow(t, 3)*p.P3.x) ) / (3*Math.pow((1-t), 2)*t);
     p.P1.y = (p.MP.y - (Math.pow((1-t), 3)*p.P0.y + 3*(1-t)*Math.pow(t, 2)*p.P2.y + Math.pow(t, 3)*p.P3.y) ) / (3*Math.pow((1-t), 2)*t);
     }
 
